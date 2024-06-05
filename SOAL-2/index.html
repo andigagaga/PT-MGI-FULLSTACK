@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Stock</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Product Stock</h2>
+    <table id="productStockTable">
+      <thead>
+        <tr>
+          <th>ID Product</th>
+          <th>Nama Product</th>
+          <th>Stock Quantity</th>
+        </tr>
+      </thead>
+      <tbody id="productStockBody"></tbody>
+    </table>
+
+    <script>
+      const product = [
+        {
+          id_produk: 1,
+          nama_produk: "Huawei P30",
+        },
+        {
+          id_produk: 2,
+          nama_produk: "Huawei Nova 5T",
+        },
+      ];
+
+      const stok_produk = [
+        { id_produk: 1, qty: 15 },
+        { id_produk: 1, qty: 6 },
+        { id_produk: 2, qty: 4 },
+        { id_produk: 2, qty: 18 },
+      ];
+
+      const productStockTable = document.getElementById("productStockBody");
+
+      product.forEach((prod) => {
+        const row = document.createElement("tr");
+
+        const idCell = document.createElement("td");
+        idCell.textContent = prod.id_produk;
+        row.appendChild(idCell);
+
+        const nameCell = document.createElement("td");
+        nameCell.textContent = prod.nama_produk;
+        row.appendChild(nameCell);
+
+        const stockQtyCell = document.createElement("td");
+        const totalStock = stok_produk.reduce((total, stock) => {
+          if (stock.id_produk === prod.id_produk) {
+            return total + stock.qty;
+          }
+          return total;
+        }, 0);
+        stockQtyCell.textContent = totalStock;
+        row.appendChild(stockQtyCell);
+
+        productStockTable.appendChild(row);
+      });
+    </script>
+  </body>
+</html>
